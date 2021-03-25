@@ -1,7 +1,5 @@
-from typing import Final
 from flask import Flask, render_template, request
 import requests
-from decimal import Decimal
 
 app = Flask(__name__)
 
