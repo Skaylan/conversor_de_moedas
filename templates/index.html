@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style.css">
+    <title>Index</title>
+</head>
+<body>
+    <form method="POST">
+        <div class="select">
+            <select name="moeda" id="moeda" required>
+                <option value="">Seleciona a moeda</option>
+                <option value="dolar-americano">Dolar Americano</option>
+                <option value="dolar-canadense">Dolar Canadense</option>
+                <option value="euro">Euro</option>
+                <option value="iene">Iene Japones</option>
+                <option value="yuan">Yuan Chines</option>
+                <option value="real">Real</option>
+            </select>
+        </div>
+        <h2 id="seta">></h2>
+        <div class="select2">
+            <select name="moeda2" id="moeda2" required>
+                <option value="">Seleciona a moeda</option>
+                <option value="dolar-americano">Dolar Americano</option>
+                <option value="dolar-canadense">Dolar Canadense</option>
+                <option value="euro">Euro</option>
+                <option value="iene">Iene Japones</option>
+                <option value="yuan">Yuan Chines</option>
+                <option value="real">Real</option>
+            </select>
+        </div>
+        <input type="number" step=0.01 name="valor" id="valor-input" required>
+        <button id="submit-button">Submit</button>
+    </form>
+    <h1 id="result">Resultado: {{ moeda }}</h1>
+</body>
+</html>
