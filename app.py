@@ -11,7 +11,23 @@ def get_coin(moeda1, moeda2, value1, value2):
     return f_coin
 
 
+def make_conversion(m1, m2, v1, v2):
+        coin = get_coin(m1, m2, v1, v2)
+        input = request.form['valor']
+        final = float(input) * float(coin)
+        return final
 
+        
+
+
+
+
+
+def make_conversion_division(m1, m2, v1, v2):
+        coin = get_coin(m1, m2, v1, v2)
+        input = request.form['valor']
+        final = float(input) / float(coin)
+        return final
 
 
 
@@ -21,175 +37,119 @@ def index():
         value = request.form['moeda']
         value2 = request.form['moeda2']
         if value == 'real' and value2 == 'dolar-americano':
-            dolar = get_coin('BRL', 'USD', 'BRL', 'high')
-            input = request.form['valor']
-            final = float(input) * float(dolar)
-            return render_template('index.html', moeda=f'US${final:.2f}')
+            moeda = make_conversion_division('USD', 'BRL', 'USD', 'high')
+            return render_template('index.html', moeda=f'US${moeda:.2f}')
 
         if value == 'real' and value2 == 'dolar-canadense':
-            dolar_canadense = get_coin('CAD', 'BRL', 'CAD', 'high')
-            input = request.form['valor']
-            final = float(input) / float(dolar_canadense)
-            return render_template('index.html', moeda=f'CAD${final:.2f}')
+            moeda = make_conversion_division('CAD', 'BRL', 'CAD', 'high')
+            return render_template('index.html', moeda=f'CAD${moeda:.2f}')
 
         if value == 'real' and value2 == 'euro':
-            euro = get_coin('EUR', 'BRL', 'EUR', 'high')
-            input = request.form['valor']
-            final = float(input) / float(euro)
-            return render_template('index.html', moeda=f'€{final:.2f}')
+            moeda = make_conversion_division('EUR', 'BRL', 'EUR', 'high')
+            return render_template('index.html', moeda=f'€{moeda:.2f}')
 
         if value == 'real' and value2 == 'iene':
-            iene = get_coin('JPY', 'BRL', 'JPY', 'high')
-            input = request.form['valor']
-            final = float(input) / float(iene)
-            return render_template('index.html', moeda=f'¥{final:.2f}')
+            moeda = make_conversion_division('JPY', 'BRL', 'JPY', 'high')
+            return render_template('index.html', moeda=f'¥{moeda:.2f}')
 
         if value == 'real' and value2 == 'yuan':
-            yuan = get_coin('CNY', 'BRL', 'CNY', 'high')
-            input = request.form['valor']
-            final = float(input) / float(yuan)
-            return render_template('index.html', moeda=f'CN¥{final:.2f}')
+            moeda = make_conversion_division('CNY', 'BRL', 'CNY', 'high')
+            return render_template('index.html', moeda=f'CN¥{moeda:.2f}')
 
         if value == 'dolar-americano' and value2 == 'real':
-            real = get_coin('BRL', 'USD', 'BRL', 'high')
-            input = request.form['valor']
-            final = float(input) / float(real)
-            return render_template('index.html', moeda=f'R${final:.2f}')
+            moeda = make_conversion('USD', 'BRL', 'USD', 'high')
+            return render_template('index.html', moeda=f'R${moeda:.2f}')
 
         if value == 'dolar-americano' and value2 == 'dolar-canadense':
-            dolar_canadense = get_coin('CAD', 'USD', 'CAD', 'high')
-            input = request.form['valor']
-            final = float(input) / float(dolar_canadense)
-            return render_template('index.html', moeda=f'CAD${final:.2f}')
+            moeda = make_conversion_division('CAD', 'USD', 'CAD', 'high')
+            return render_template('index.html', moeda=f'CAD${moeda:.2f}')
 
         if value == 'dolar-americano' and value2 == 'euro':
-            euro = get_coin('EUR', 'USD', 'EUR', 'high')
-            input = request.form['valor']
-            final = float(input) / float(euro)
-            return render_template('index.html', moeda=f'€{final:.2f}')
+            moeda = make_conversion_division('EUR', 'USD', 'EUR', 'high')
+            return render_template('index.html', moeda=f'€{moeda:.2f}')
 
         if value == 'dolar-americano' and value2 == 'iene':
-            iene = get_coin('JPY', 'USD', 'JPY', 'high')
-            print(iene)
-            input = request.form['valor']
-            final = float(input) / float(iene) * 100
-            return render_template('index.html', moeda=f'¥{final:.2f}')
+            moeda = make_conversion_division('JPY', 'USD', 'JPY', 'high')
+            return render_template('index.html', moeda=f'¥{moeda * 100:.2f}')
 
         if value == 'dolar-americano' and value2 == 'yuan':
-            yuan = get_coin('CNY', 'USD', 'CNY', 'high')
-            input = request.form['valor']
-            final = float(input) / float(yuan)
-            return render_template('index.html', moeda=f'{final:.2f}')
+            moeda = make_conversion_division('CNY', 'USD', 'CNY', 'high')
+            return render_template('index.html', moeda=f'CN¥{moeda:.2f}')
+
+        if value == 'dolar-canadense' and value2 == 'real':
+            moeda = make_conversion('CAD', 'BRL', 'CAD', 'high')
+            return render_template('index.html', moeda=f'R${moeda:.2f}')
 
         if value == 'dolar-canadense' and value2 == 'dolar-americano':
-            dolar_americano = get_coin('CAD', 'USD', 'CAD', 'high')
-            input = request.form['valor']
-            final = float(input) * float(dolar_americano)
-            return render_template('index.html', moeda=f'{final:.2f}')
+            moeda = make_conversion('CAD', 'USD', 'CAD', 'high')
+            return render_template('index.html', moeda=f'CAD${moeda:.2f}')
 
         if value == 'dolar-canadense' and value2 == 'euro':
-            euro = get_coin('CAD', 'EUR', 'CAD', 'high')
-            input = request.form['valor']
-            final = float(input) * float(euro)
-            return render_template('index.html', moeda=f'€{final:.2f}')
+            moeda = make_conversion('CAD', 'EUR', 'CAD', 'high')
+            return render_template('index.html', moeda=f'€{moeda:.2f}')
 
         if value == 'dolar-canadense' and value2 == 'iene':
-            return render_template('index.html', moeda='Operação indisponível no momento.')
+            return render_template('index.html', moeda=f'Operação indisponível no momento.')
 
         if value == 'dolar-canadense' and value2 == 'yuan':
-            return render_template('index.html', moeda='Operação indisponível no momento.')
-
-        if value == 'euro' and value2 == 'dolar-americano':
-            dolar_americano = get_coin('USD', 'EUR', 'USD', 'high')
-            input = request.form['valor']
-            final = float(input) / float(dolar_americano)
-            return render_template('index.html', moeda=f'US${final:.2f}')
-
-        if value == 'euro' and value2 == 'dolar-canadense':
-            dolar_canadense = get_coin('CAD', 'EUR', 'CAD', 'high')
-            input = request.form['valor']
-            final = float(input) / float(dolar_canadense)
-            return render_template('index.html', moeda=f'CAD${final:.2f}')
-
-        if value == 'euro' and value2 == 'iene':
-            iene = get_coin('JPY', 'EUR', 'JPY', 'high')
-            input = request.form['valor']
-            final = float(input) / float(iene) * 100
-            return render_template('index.html', moeda=f'¥{final:.2f}')
-
-        if value == 'euro' and value2 == 'yuan':
-            yuan = get_coin('CNY', 'EUR', 'CNY', 'high')
-            input = request.form['valor']
-            final = float(input) / float(yuan)
-            return render_template('index.html', moeda=f'CN¥{final:.2f}')
+            return render_template('index.html', moeda=f'Operação indisponível no momento.')
 
         if value == 'euro' and value2 == 'real':
-            real = get_coin('BRL', 'EUR', 'BRL', 'high')
-            input = request.form['valor']
-            final = float(input) / float(real)
-            return render_template('index.html', moeda=f'R${final:.2f}')
+            moeda = make_conversion('BRL', 'EUR', 'BRL', 'high')
+            return render_template('index.html', moeda=f'R${moeda:.2f}')
 
-        if value == 'iene' and value2 == 'dolar-americano':
-            dolar_americano = get_coin('JPY', 'USD', 'JPY', 'high')
-            input = request.form['valor']
-            final = float(input) * float(dolar_americano)
-            return render_template('index.html', moeda=f'US${final:.2f}')
+        if value == 'euro' and value2 == 'dolar-americano':
+            moeda = make_conversion('EUR', 'USD', 'EUR', 'high')
+            return render_template('index.html', moeda=f'US${moeda:.2f}')
 
-        if value == 'iene' and value2 == 'dolar-canadense':
-            return render_template('index.html', moeda='Operação indisponível no momento.')
+        if value == 'euro' and value2 == 'dolar-canadense':
+            moeda = make_conversion('CAD', 'EUR', 'CAD', 'high')
+            return render_template('index.html', moeda=f'CAD${moeda:.2f}')
 
-        if value == 'iene' and value2 == 'euro':
-            euro = get_coin('JPY', 'EUR', 'JPY', 'high')
-            input = request.form['valor']
-            final = float(input) * float(euro)
-            return render_template('index.html', moeda=f'US${final:.2f}')
+        if value == 'euro' and value2 == 'iene':
+            moeda = make_conversion_division('JPY', 'EUR', 'JPY', 'high')
+            return render_template('index.html', moeda=f'¥{moeda * 100:.2f}')
 
-
-        if value == 'iene' and value2 == 'euro':
-            euro = get_coin('JPY', 'EUR', 'JPY', 'high')
-            input = request.form['valor']
-            final = float(input) * float(euro)
-            return render_template('index.html', moeda=f'US${final:.2f}')
-
-        if value == 'iene' and value2 == 'yuan':
-            return render_template('index.html', moeda='Operação indisponível no momento.')
+        if value == 'euro' and value2 == 'yuan':
+            moeda = make_conversion_division('CNY', 'EUR', 'CNY', 'high')
+            return render_template('index.html', moeda=f'CN¥{moeda:.2f}')
 
         if value == 'iene' and value2 == 'real':
-            real = get_coin('JPY', 'BRL', 'JPY', 'high')
-            input = request.form['valor']
-            final = float(input) * float(real)
-            return render_template('index.html', moeda=f'R${final:.3f}')
+            moeda = make_conversion('JPY', 'BRL', 'JPY', 'high')
+            return render_template('index.html', moeda=f'R${moeda:.2f}')
+
+        if value == 'iene' and value2 == 'dolar-americano':
+            return render_template('index.html', moeda=f'Operação indisponível no momento.')
+
+        if value == 'iene' and value2 == 'dolar-canadense':
+            return render_template('index.html', moeda=f'Operação indisponível no momento.')
+
+        if value == 'iene' and value2 == 'euro':
+            moeda = make_conversion('JPY', 'BRL', 'JPY', 'high')
+            return render_template('index.html', moeda=f'€{moeda:.2f}')
+
+        if value == 'iene' and value2 == 'yuan':
+            moeda = make_conversion('JPY', 'BRL', 'JPY', 'high')
+            return render_template('index.html', moeda=f'CN¥{moeda:.2f}')
+
+        if value == 'yuan' and value2 == 'real':
+            moeda = make_conversion('CNY', 'BRL', 'CNY', 'high')
+            return render_template('index.html', moeda=f'R${moeda:.2f}')
 
         if value == 'yuan' and value2 == 'dolar-americano':
-            dolar_americano = get_coin('CNY', 'USD', 'CNY', 'high')
-            input = request.form['valor']
-            final = float(input) * float(dolar_americano)
-            return render_template('index.html', moeda=f'US${final:.2f}')
+            moeda = make_conversion('CNY', 'USD', 'CNY', 'high')
+            return render_template('index.html', moeda=f'US${moeda:.2f}')
 
         if value == 'yuan' and value2 == 'dolar-canadense':
             return render_template('index.html', moeda=f'Operação indisponível no momento.')
 
         if value == 'yuan' and value2 == 'euro':
-            euro = get_coin('CNY', 'EUR', 'CNY', 'high')
-            input = request.form['valor']
-            final = float(input) * float(euro)
-            return render_template('index.html', moeda=f'€{final:.2f}')
+            moeda = make_conversion('CNY', 'EUR', 'CNY', 'high')
+            return render_template('index.html', moeda=f'€{moeda:.2f}')
 
         if value == 'yuan' and value2 == 'iene':
             return render_template('index.html', moeda=f'Operação indisponível no momento.')
-
-        if value == 'yuan' and value2 == 'real':
-            real = get_coin('CNY', 'BRL', 'CNY', 'high')
-            input = request.form['valor']
-            final = float(input) * float(real)
-            return render_template('index.html', moeda=f'R${final:.2f}')
-
-        if value == 'dolar-canadense' and value2 == 'real':
-            real = get_coin('CAD', 'BRL', 'CAD', 'high')
-            input = request.form['valor']
-            final = float(input) * float(real)
-            return render_template('index.html', moeda=f'R${final:.2f}')
-
+        
     return render_template('index.html')
 
 
