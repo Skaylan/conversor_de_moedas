@@ -1,10 +1,15 @@
 from flask import Flask, render_template, request
-import requests
+from dotenv import load_dotenv
+import requests, os
+
+load_dotenv()
 
 app = Flask(__name__)
 
+api = os.getenv('API_LINK')
+
 def get_coin(moeda1, moeda2, value1, value2):
-    url = requests.get(f'https://economia.awesomeapi.com.br/all/{moeda1}-{moeda2}')
+    url = requests.get(api + moeda1 + '-' + moeda2)
     info = url.json()
     final_info = float(info[value1][value2])
     f_coin = float(final_info)
